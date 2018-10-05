@@ -11,19 +11,17 @@ pipeline {
         stage('Callview (IVR)') {
           agent {
             node {
-              label 'nbn_di'
+              label 'nbn'
             }
 
           }
           steps {
             echo 'nba_raw_ivr_di'
-            sleep(time: 3, unit: 'MINUTES')
           }
         }
         stage('SSP Google Analytics') {
           steps {
             echo 'nbn_raw_ssp_google_analytics_di'
-            sleep(unit: 'MINUTES', time: 2)
           }
         }
         stage('Diagnostic Microservices Bambi Splunk') {
@@ -80,7 +78,7 @@ pipeline {
             echo 'unplanned'
           }
         }
-        stage('') {
+        stage('error') {
           steps {
             echo 'unplanned'
           }
