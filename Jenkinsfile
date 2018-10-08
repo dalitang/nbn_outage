@@ -6,7 +6,7 @@ pipeline {
         stage('j1') {
           steps {
             echo '1'
-            build (job: 'j1m', wait: false)
+            build 'j1m'
           }
         }
         stage('j2') {
