@@ -5,11 +5,13 @@ pipeline {
       parallel {
         stage('j1') {
           steps {
+            echo '1'
             build 'j1m'
           }
         }
         stage('j2') {
           steps {
+            echo '2'
             build 'j10s'
           }
         }
