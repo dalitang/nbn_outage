@@ -5,12 +5,12 @@ pipeline {
       parallel {
         stage('j1') {
           steps {
-            build(job: 'j1m', wait: true)
+            build 'j1m'
           }
         }
         stage('j2') {
           steps {
-            build(job: 'j10s', wait: true)
+            build 'j10s'
           }
         }
       }
