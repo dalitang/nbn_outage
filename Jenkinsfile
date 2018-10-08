@@ -12,7 +12,7 @@ pipeline {
         stage('j2') {
           steps {
             echo '2'
-            build 'j10s'
+            build (job: 'j10s', wait: false)
           }
         }
       }
@@ -21,12 +21,12 @@ pipeline {
       parallel {
         stage('j1') {
           steps {
-            build 'j10s'
+            build (job: 'j10s', wait: false)
           }
         }
         stage('j2') {
           steps {
-            build 'j1m'
+            build (job: 'j1m', wait: false)
           }
         }
       }
