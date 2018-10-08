@@ -1,93 +1,32 @@
 pipeline {
-  agent {
-    node {
-      label 'nbn'
-    }
-
-  }
+  agent any
   stages {
-    stage('Data Ingestion ') {
+    stage('s1') {
       parallel {
-        stage('Callview (IVR)') {
-          agent {
-            node {
-              label 'nbn'
-            }
-
-          }
+        stage('j1') {
           steps {
-            echo 'nba_raw_ivr_di'
+            build 'j1m'
           }
         }
-        stage('SSP Google Analytics') {
+        stage('j2') {
           steps {
-            echo 'nbn_raw_ssp_google_analytics_di'
-          }
-        }
-        stage('Diagnostic Microservices Bambi Splunk') {
-          steps {
-            echo 'nba_raw_bambi_splunk_di'
-          }
-        }
-        stage('iTAM') {
-          steps {
-            echo 'nba_raw_itam_di'
-          }
-        }
-        stage('NBN Topology') {
-          steps {
-            echo 'nba_raw_topology_di'
-          }
-        }
-        stage('Siebel Customer Mapping') {
-          steps {
-            echo 'nba_raw_siebel_customer_di'
+            build 'j10s'
           }
         }
       }
     }
-    stage('Kafka Raw') {
-      steps {
-        echo 'Receive Msg from data sources'
-      }
-    }
-    stage('Data Wrangling') {
+    stage('s2') {
       parallel {
-        stage('TAAA Stop') {
+        stage('j1') {
           steps {
-            echo 'nbn_taaa_stop_dw'
+            build 'j10s'
           }
         }
-        stage('SIP') {
+        stage('j2') {
           steps {
-            echo 'sip'
+            build 'j1m'
           }
         }
-        stage('ExtraHop') {
-          steps {
-            echo 'extrahop'
-          }
-        }
-        stage('iTAM Planned Outage') {
-          steps {
-            echo 'itam planned outage'
-          }
-        }
-        stage('iTAM Unplanned Outage') {
-          steps {
-            echo 'unplanned'
-          }
-        }
-        stage('error') {
-          steps {
-            echo 'unplanned'
-          }
-        }
-      }
-    }
-    stage('Kafka Processed') {
-      steps {
-        echo 'Push back new topics'
       }
     }
   }
